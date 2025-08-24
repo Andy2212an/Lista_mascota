@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Controllers;
 
@@ -39,10 +39,8 @@ class MascotaController extends BaseController
     $result = $mascota->where('id', $id)->first();
 
     if (!$result){ 
-      //Redirección (cambiara la URL manualmente - NAVEGACIÓN)
       return $this->response->redirect(base_url('mascotas'));
     }else{
-      //Agrego una nueva clave conteniendo los datos de la mascota
       $datos['mascota'] = $result;
       return view('mascotas/editar', $datos);
     }
@@ -52,18 +50,19 @@ class MascotaController extends BaseController
   public function guardar() {
     $mascota = new Mascota();
 
-    $nombre = $this->request->getVar('nombre');
-    $especie = $this->request->getVar('especie');
-    $edad = $this->request->getVar('edad');
-    $sexo = $this->request->getVar('sexo');
+    $nombre   = $this->request->getVar('nombre');
+    $dueno    = $this->request->getVar('dueno');   // 👈 agregado
+    $especie  = $this->request->getVar('especie');
+    $edad     = $this->request->getVar('edad');
+    $sexo     = $this->request->getVar('sexo');
     
-    //Subir archivo imagen
     if ($imagen = $this->request->getFile('imagen')){
       $nuevoNombre = $imagen->getRandomName();
       $imagen->move('../public/uploads/', $nuevoNombre);
 
       $registro = [
         'nombre'    => $nombre,
+        'dueno'     => $dueno,   // 👈 agregado
         'especie'   => $especie,
         'edad'      => $edad,
         'sexo'      => $sexo,
@@ -73,22 +72,16 @@ class MascotaController extends BaseController
       $mascota->insert($registro);
       return $this->response->redirect(base_url('mascotas'));
     }
-
-    //$mascota->insert();
   }
 
   public function borrar($id = null){
     $mascota = new Mascota();
 
-    //Eliminar el archivo físico (imagen)
-    //Utilizar ID (PK) > obtener el nombre físico del archivo de imagen
     $datosMascota = $mascota->where('id', $id)->first();
     $rutaImagen = '../public/uploads/' . $datosMascota['imagen'];
 
-    //Eliminarlo en caso exista...
     if (file_exists($rutaImagen)){ unlink($rutaImagen); }
 
-    //Eliminar el registro de la tabla "mascotas"
     $mascota->where('id', $id)->delete($id);
 
     return $this->response->redirect(base_url('mascotas'));
@@ -97,22 +90,18 @@ class MascotaController extends BaseController
   public function actualizar(){
     $mascota = new Mascota();
 
-    //Actualización requiere:
-    //1. Campos a ser actualizados (arreglo asociativo)
     $datos = [
       'nombre'    => $this->request->getVar('nombre'),
+      'dueno'     => $this->request->getVar('dueno'),  // 👈 agregado
       'especie'   => $this->request->getVar('especie'),
       'edad'      => $this->request->getVar('edad'),
       'sexo'      => $this->request->getVar('sexo')
     ];
 
-    //2. Clave primaria
     $id = $this->request->getVar('id');
 
-    //Actualizar el registro
     $mascota->update($id, $datos);
 
-    //Validación del archivo binario (jpg, png, jpeg)
     $validacion = $this->validate([
       'imagen' => [
         'uploaded[imagen]',
@@ -121,28 +110,31 @@ class MascotaController extends BaseController
       ]
     ]);
 
-    //¡La imagen es correcta!, podemos actualizarla...
     if ($validacion){
       if ($imagen = $this->request->getFile('imagen')){
-        
-        //1. Obtener el nombre de la imagen anterior
-        $datosMascota = $mascota->where('id', $id)->first(); //Obtenemos los datos de la mascota
+        $datosMascota = $mascota->where('id', $id)->first();
         $rutaImagen = '../public/uploads/' . $datosMascota['imagen'];
   
-        //2. Eliminar la imagen anterior
         if (file_exists($rutaImagen)) { unlink($rutaImagen); }
   
-        //3. Reemplazar por la nueva imagen
         $nuevoNombre = $imagen->getRandomName();
         $imagen->move('../public/uploads/', $nuevoNombre);
   
-        //4. Actualizar la BD con el nuevo nombre aleatorio
         $datos = ["imagen" => $nuevoNombre];
-        $mascota->update($id, $datos);  //Solo se actualizará el nombre de la imagen
+        $mascota->update($id, $datos);
       }
     }
 
     return $this->response->redirect(base_url('mascotas'));
   }
 
+  public function perfil()
+  {
+    $mascotaModel = new \App\Models\Mascota();
+    $data['mascotas'] = $mascotaModel->findAll();
+
+    return view('mascotas/perfil', $data);
+  }
+
 }
+

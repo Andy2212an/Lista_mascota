@@ -21,12 +21,12 @@
         <div class="mb-3">
           <label for="especie">Especie</label>
           <select name="especie" id="especie" class="form-control" required>
-            <option value="Perro" <?= $mascota['especie'] == 'Perro' ? 'selected' : '' ?>>Perro</option>
-            <option value="Gato" <?= $mascota['especie'] == 'Gato' ? 'selected' : '' ?>>Gato</option>
-            <option value="Pez" <?= $mascota['especie'] == 'Pez' ? 'selected' : '' ?>>Pez</option>
+            <option value="Perro"   <?= $mascota['especie'] == 'Perro' ? 'selected' : '' ?>>Perro</option>
+            <option value="Gato"    <?= $mascota['especie'] == 'Gato' ? 'selected' : '' ?>>Gato</option>
+            <option value="Pez"     <?= $mascota['especie'] == 'Pez' ? 'selected' : '' ?>>Pez</option>
             <option value="Hámster" <?= $mascota['especie'] == 'Hámster' ? 'selected' : '' ?>>Hámster</option>
-            <option value="Pájaro" <?= $mascota['especie'] == 'Pájaro' ? 'selected' : '' ?>>Pájaro</option>
-            <option value="Hurón" <?= $mascota['especie'] == 'Hurón' ? 'selected' : '' ?>>Hurón</option>
+            <option value="Pájaro"  <?= $mascota['especie'] == 'Pájaro' ? 'selected' : '' ?>>Pájaro</option>
+            <option value="Hurón"   <?= $mascota['especie'] == 'Hurón' ? 'selected' : '' ?>>Hurón</option>
           </select>
         </div>
 
@@ -38,9 +38,14 @@
         <div class="mb-3">
           <label for="sexo">Sexo</label>
           <select name="sexo" id="sexo" class="form-control" required>
-            <option value="M" <?= $mascota['sexo'] == 'M' ? 'selected' : '' ?>>Masculino (M)</option>
-            <option value="F" <?= $mascota['sexo'] == 'F' ? 'selected' : '' ?>>Femenino (F)</option>
+            <option value="Macho"  <?= $mascota['sexo'] == 'Macho' ? 'selected' : '' ?>>Macho</option>
+            <option value="Hembra" <?= $mascota['sexo'] == 'Hembra' ? 'selected' : '' ?>>Hembra</option>
           </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="dueno">Dueño</label>
+          <input type="text" class="form-control" name="dueno" id="dueno" value="<?= $mascota['dueno'] ?>" required>
         </div>
 
         <div class="my-3">
@@ -63,3 +68,4 @@
 </div>
 
 <?= $footer; ?>
+

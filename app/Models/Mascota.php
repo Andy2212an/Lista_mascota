@@ -7,8 +7,8 @@ class Mascota extends Model {
 
   protected $table = 'mascotas';
   protected $primaryKey = 'id';
-  protected $allowedFields = ['nombre', 'especie', 'edad', 'sexo', 'imagen', 'fecha_registro'];
+  protected $allowedFields = ['nombre', 'especie', 'edad', 'sexo', 'imagen', 'dueno', 'fecha_registro'];
 
-  // Opcional: si quieres que 'fecha_registro' se maneje automáticamente
-  protected $useTimestamps = false; // como es TIMESTAMP con default CURRENT_TIMESTAMP en BD no es obligatorio
+  // Si no quieres manejar created_at y updated_at
+  protected $useTimestamps = false;
 }

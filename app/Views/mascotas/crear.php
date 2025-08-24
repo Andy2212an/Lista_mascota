@@ -1,56 +1,60 @@
 <?= $header; ?>
 
 <div class="container mt-2">
-  <div class="my-2">
-    <h4>Registro de Mascotas</h4>
-    <a href="<?= base_url("mascotas/listar"); ?>">Volver</a>
-  </div>
-
-  <form method="POST" action="<?= base_url('mascotas/guardar') ?>" enctype="multipart/form-data">
-    <div class="card">
-      <div class="card-body">
-        <div class="mb-3">
-          <label for="nombre">Nombre de la mascota</label>
-          <input type="text" class="form-control" name="nombre" id="nombre" autofocus required>
-        </div>
-        <div class="mb-3">
-          <label for="especie">Especie</label>
-          <select name="especie" id="especie" class="form-control" required>
-            <option value="" disabled selected>Seleccione la especie</option>
-            <option value="Perro">Perro</option>
-            <option value="Gato">Gato</option>
-            <option value="Pez">Pez</option>
-            <option value="Hámster">Hámster</option>
-            <option value="Pájaro">Pájaro</option>
-            <option value="Hurón">Hurón</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="edad">Edad</label>
-          <input type="number" class="form-control" name="edad" id="edad" min="0" required>
-        </div>
-        <div class="mb-3">
-          <label for="sexo">Sexo</label>
-          <select name="sexo" id="sexo" class="form-control" required>
-            <option value="" disabled selected>Seleccione el sexo</option>
-            <option value="M">Masculino (M)</option>
-            <option value="F">Femenino (F)</option>
-          </select>
-        </div>
-        <div>
-          <label for="imagen">Adjuntar imagen</label>
-          <input type="file" class="form-control" name="imagen" id="imagen" accept="image/png,image/jpeg,image/jpg">
-        </div>
-      </div>
-      <div class="card-footer text-end">
-        <a href="<?= base_url('mascotas') ?>" class="btn btn-sm btn-outline-secondary">Cancelar</a>
-        <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
-      </div>
+  <h4>Registrar Mascota</h4>
+  <form action="<?= base_url('mascotas/guardar') ?>" method="post" enctype="multipart/form-data">
+    
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" name="nombre" id="nombre" required>
     </div>
-  </form>
 
+    <div class="mb-3">
+      <label for="especie" class="form-label">Especie</label>
+      <select class="form-control" name="especie" id="especie" required>
+        <option value="">Seleccione especie</option>
+        <option value="Perro">Perro</option>
+        <option value="Gato">Gato</option>
+        <option value="Ave">Ave</option>
+        <option value="Conejo">Conejo</option>
+        <option value="Otro">Otro</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="edad" class="form-label">Edad</label>
+      <input type="number" class="form-control" name="edad" id="edad" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="sexo" class="form-label">Sexo</label>
+      <select class="form-control" name="sexo" id="sexo" required>
+        <option value="Macho">Macho</option>
+        <option value="Hembra">Hembra</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="dueno" class="form-label">Dueño</label>
+      <input type="text" class="form-control" name="dueno" id="dueno" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="imagen" class="form-label">Imagen</label>
+      <input type="file" class="form-control" name="imagen" id="imagen">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="<?= base_url('mascotas'); ?>" class="btn btn-secondary">Cancelar</a>
+  </form>
+  
 </div>
 
 <?= $footer; ?>
+
+
+
+
+
 
 

@@ -10,11 +10,12 @@
     <table class="table table-sm">
       <colgroup>
         <col width="5%">
-        <col width="15%">
-        <col width="15%">
         <col width="10%">
         <col width="10%">
+        <col width="8%">
+        <col width="10%">
         <col width="15%">
+        <col width="10%">
         <col width="15%">
         <col width="10%">
       </colgroup>
@@ -26,7 +27,8 @@
           <th>Edad</th>
           <th>Sexo</th>
           <th>Imagen</th>
-          <th>Fecha Registro</th>  <!-- Aquí agregamos la columna -->
+          <th>Dueño</th>
+          <th>Fecha Registro</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -41,9 +43,12 @@
           <td><?= htmlspecialchars($mascota['edad']) ?></td>
           <td><?= htmlspecialchars($mascota['sexo']) ?></td>
           <td>
-            <img src="<?= base_url("uploads/") ?><?= $mascota['imagen'] ?>" alt="Imagen de <?= htmlspecialchars($mascota['nombre']) ?>" class="img-thumbnail" style="width: 120px">
+            <img src="<?= base_url("uploads/") ?><?= $mascota['imagen'] ?>" 
+                 alt="Imagen de <?= htmlspecialchars($mascota['nombre']) ?>" 
+                 class="img-thumbnail" style="width: 120px">
           </td>
-          <td><?= $mascota['fecha_registro'] ?></td> <!-- Aquí mostramos la fecha -->
+          <td><?= htmlspecialchars($mascota['dueno']) ?></td>
+          <td><?= $mascota['fecha_registro'] ?></td>
           <td>
             <a href="<?= base_url('mascotas/borrar/') . $mascota['id'] ?>" class="btn btn-sm btn-danger">Eliminar</a>
             <a href="<?= base_url('mascotas/editar/') . $mascota['id'] ?>" class="btn btn-sm btn-info">Editar</a>
@@ -59,4 +64,5 @@
 </div>
 
 <?= $footer; ?>
+
 

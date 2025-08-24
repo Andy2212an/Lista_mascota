@@ -17,3 +17,6 @@ $routes->post('/mascotas/guardar', 'MascotaController::guardar');
 $routes->post('/mascotas/actualizar', 'MascotaController::actualizar');
 
 $routes->get('/mascotas/borrar/(:num)', 'MascotaController::borrar/$1');
+
+$routes->get('/mascotas/perfil', 'MascotaController::perfil');
+
