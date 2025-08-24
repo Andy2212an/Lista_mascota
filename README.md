@@ -1,68 +1,117 @@
-# CodeIgniter 4 Application Starter
+# 🐶 CRUD de Mascotas - CodeIgniter 4
 
-## What is CodeIgniter?
+Este es un proyecto de ejemplo hecho en CodeIgniter 4, que implementa un CRUD (Crear, Leer, Actualizar y Eliminar) para gestionar mascotas.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## 📋 Nombre del Archivo es:
+- mascota
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## 📋 Características
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Registro de mascotas con los siguientes datos:
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- Nombre
+- Especie
+- Edad
+- Sexo (Macho / Hembra)
+- Dueño
+- Imagen
 
-## Installation & updates
+Operaciones disponibles:
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+- Crear nueva mascota
+- Listar todas las mascotas
+- Editar datos de una mascota
+- Eliminar mascota
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## 🚀 Instalación en Laragon
 
-## Setup
+1. Clona o copia este proyecto en la carpeta:
+- C:\laragon\www\mascota
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
 
-## Important Change with index.php
+2. Crea la base de datos en **HeidiSQL** o en consola MySQL:
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+```sql
+CREATE DATABASE mascota;
+USE mascota;
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+CREATE TABLE mascotas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  dueno VARCHAR(100) NOT NULL,
+  especie VARCHAR(50) NOT NULL,
+  edad INT NOT NULL,
+  sexo ENUM('Macho', 'Hembra') NOT NULL,
+  imagen VARCHAR(255) DEFAULT NULL,
+  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-**Please** read the user guide for a better explanation of how CI4 works!
+INSERT INTO mascotas (nombre, dueno, especie, edad, sexo, imagen) VALUES
+('Firulais', 'Juan Pérez', 'Perro', 3, 'Macho', 'firulais.jpg'),
+('Michi', 'Ana Torres', 'Gato', 2, 'Hembra', 'michi.png'),
+('Rex', 'Carlos López', 'Perro', 5, 'Macho', 'rex.jpg');
 
-## Repository Management
+SELECT * FROM mascotas;
+);
+```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+3. El archivo env renómbralo como .env:
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+4. Inicia Laragon y abre el navegador en:
 
-## Server Requirements
+- http://mascota.test/mascotas
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+## 📂 Estructura del proyecto
+```
+app/
+  Controllers/
+    MascotaController.php   # Controlador del CRUD
+  Models/
+    Mascota.php             # Modelo de la tabla mascotas
+  Views/
+    mascotas/
+      crear.php             # Vista para crear mascotas
+      editar.php            # Vista para editar mascotas
+      listar.php            # Vista para listar mascotas
+      perfil.php            # Vista con cards de mascotas
+    Layouts/
+      header.php            # Cabecera del sitio
+      footer.php            # Pie de página
+public/
+  uploads/                  # Carpeta donde se guardan las imágenes
+.env                       # Archivo de configuración de la base de datos
+```
+- **En el github el Archivo esta asi "env" lo renómbralo como ".env"**
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+## 🖼️ Vista de Perfil (perfil.php)
+En la vista Views/mascotas/perfil.php se muestran las mascotas registradas usando cards de Bootstrap, para que se vea más visual. Cada card contiene:
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+- Imagen de la mascota 
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+- Nombre de la mascota
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+- Especie
+
+- Edad
+
+- Sexo
+
+- Dueño
+
+- Fecha de registro
+
+Esto permite que los usuarios vean rápidamente la información
+
+## 🖥️ Uso del CRUD
+1. Listar mascotas:
+Ve a http://mascota.test/mascotas/listar para ver la lista completa.
+Aquí se pueden eliminar o editar mascotas.
+
+2. Crear mascota:
+Ve a http://mascota.test/mascotas/crear para registrar una nueva mascota.
+
+3. Editar mascota:
+Desde la lista de mascotas, haz clic en Editar para modificar los datos.
+
+4. Eliminar mascota:
+Desde la lista de mascotas, haz clic en Eliminar para borrar un registro.
